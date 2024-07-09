@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="flex justify-center">
+    <div>
+        <img src="{{ product.image.url }}" class="rounded-xl max-w-xs">
+    </div>
+
+    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
+        <h1 class="mb-6 text-3xl font-semibold">{{ product.name }}</h1>
+        <p class="text-gray-500"><strong>Price: </strong>{{ product.price }}</p>
+        <p class="text-gray-500"><strong>Seller: </strong>{{ product.created_by.username }}</p>
+
+        {% if product.description %}
+        <p class="text-gray-700"><strong class="text-gray-500">Description: </strong>{{ product.description }}</p>
+        {% endif %}
+
+        <a href="#" class="inline-block mt-32 px-4 py-3 text-lg font-semibold bg-red-800 text-white rounded-xl hover:bg-red-700">Buy Now</a>
+    </div>
+
+
+</div>
+
+<div class="mx-8 my-6 mt-12 px-12 py-6 bg-zinc-100 rounded-xl shadow-lg">
+
+    <h3 class="text-xl font-bold flex justify-center">Other Products</h3>
+    
+    <div class="font-semibold font-xl grid grid-cols-2 gap-3 py-5">
+        {% for product in other %}
+        <div class="py-4">
+            <a href="{% url 'product:detail' product.id %}">
+                <div class="grid grid-cols-2 gap-3">
+                    <img src="{{ product.image.url }}" class="rounded-xl" alt="">
+                    <div class=" flex flex-col justify-center space-y-8">
+                        <h3 class="font-semibold">{{ product.name }}</h3>
+                        <h3>Price: ${{ product.price }}</h3>
+                        <p><a href="#" class="px-3 py-3 bg-red-800 text-white rounded-xl hover:bg-red-700">Buy Product</a></p>
+                    </div>
+                </div>
+            </a>
+            
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
